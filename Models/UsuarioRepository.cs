@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MySqlConnector;
 
 namespace Cadastros.Models
@@ -19,6 +20,37 @@ namespace Cadastros.Models
             comando.ExecuteNonQuery();
 
             conexao.Close();
+        }
+
+        public List<Usuario> Query()
+        {
+            MySqlConnection conexao = new MySqlConnection(_strConexao);
+
+            conexao.Open();
+            string sql = "SELECT * FROM Usuario ORDER BY nome";
+            MySqlCommand comandoQuery = new MySqlCommand(sql, conexao);
+            MySqlDataReader reader = comandoQuery.ExecuteReader();
+
+            List<Usuario> lista = new List<Usuario>();
+
+            while (reader.Read())
+            {
+                Usuario usr = new Usuario();
+                usr.Id = reader.GetInt32("Id");
+       
+                if(!reader.IsDBNull(reader.GetOrdinal("Nome")))
+                usr.Nome = reader.GetString("Nome");
+       
+                if(!reader.IsDBNull(reader.GetOrdinal("Login")))
+                usr.Login = reader.GetString("Login");
+
+                if(!reader.IsDBNull(reader.GetOrdinal("Senha")))
+                usr.Senha = reader.GetString("Senha");
+
+                lista.Add(usr);
+            }
+            conexao.Close();
+            return lista;
         }
     }
 }

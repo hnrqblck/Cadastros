@@ -24,5 +24,11 @@ namespace Cadastros.Controllers
             ViewBag.Mensagem = "Usuario Cadastrado com sucesso!";
             return View();
         }
+        public IActionResult Listar()
+        {
+            UsuarioRepository ur = new UsuarioRepository();
+            List<Usuario> usuarios = ur.Query();
+            return View(usuarios);
+        }
     }
 }

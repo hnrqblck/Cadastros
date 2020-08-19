@@ -35,3 +35,4 @@ C:\Users\jorge\OneDrive\Documents\GitHub\Projetos Pessoais\Cadastros\obj\Debug\n
 C:\Users\jorge\OneDrive\Documents\GitHub\Projetos Pessoais\Cadastros\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Cadastro.cshtml.g.cs
 C:\Users\jorge\OneDrive\Documents\GitHub\Projetos Pessoais\Cadastros\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\jorge\OneDrive\Documents\GitHub\Projetos Pessoais\Cadastros\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\jorge\OneDrive\Documents\GitHub\Projetos Pessoais\Cadastros\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Listar.cshtml.g.cs
