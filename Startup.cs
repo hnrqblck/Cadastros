@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,31 +13,40 @@ using Microsoft.Extensions.Hosting;
 namespace Cadastros
 {
     public class Startup
+{
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+    public IConfiguration Configuration { get; }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.Configure<CookiePolicyOptions>(options =>
         {
-            Configuration = configuration;
+            options.CheckConsentNeeded = context => false;
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+        });
+        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        services.AddMemoryCache();
+        services.AddSession();
+    }
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        else
         {
-            services.AddControllersWithViews();
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+        //Https
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
+            app.UseSession();
+            //dotnet dev-certs https --trust
+            
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -48,6 +59,6 @@ namespace Cadastros
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
     }
+}
 }

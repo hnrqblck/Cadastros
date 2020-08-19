@@ -52,5 +52,36 @@ namespace Cadastros.Models
             conexao.Close();
             return lista;
         }
+        public Usuario QueryLogin(Usuario u)
+        {
+            MySqlConnection conexao = new MySqlConnection(_strConexao);
+
+            conexao.Open();
+            string sql = "SELECT * FROM Usuario WHERE login = @Login AND senha = @Senha";
+
+            MySqlCommand comandoQuery = new MySqlCommand(sql, conexao);
+            comandoQuery.Parameters.AddWithValue("@Login", u.Login);
+            comandoQuery.Parameters.AddWithValue("@Senha", u.Senha);
+            MySqlDataReader reader = comandoQuery.ExecuteReader();
+            Usuario usr = null;
+
+            if (reader.Read())
+            {
+                usr = new Usuario();
+                usr.Id = reader.GetInt32("Id");
+
+                if(!reader.IsDBNull(reader.GetOrdinal("Nome")))
+                    usr.Nome = reader.GetString("Nome");
+       
+                if(!reader.IsDBNull(reader.GetOrdinal("Login")))
+                    usr.Login = reader.GetString("Login");
+
+                if(!reader.IsDBNull(reader.GetOrdinal("Senha")))
+                    usr.Senha = reader.GetString("Senha");
+            }
+            conexao.Close();
+            return usr;
+
+        }
     }
 }

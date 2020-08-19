@@ -14219,6 +14219,11 @@
       "FilePath": "c:\\Users\\jorge\\OneDrive\\Documents\\GitHub\\Projetos Pessoais\\Cadastros\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\jorge\\OneDrive\\Documents\\GitHub\\Projetos Pessoais\\Cadastros\\Views\\Usuario\\Login.cshtml",
+      "TargetPath": "Views\\Usuario\\Login.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
